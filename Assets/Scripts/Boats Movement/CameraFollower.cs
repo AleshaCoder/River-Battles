@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public sealed class CameraFollower : MonoBehaviour
+public sealed class CameraFollower : MonoBehaviour, IService
 {
     [Header("Common Settings")]
     [SerializeField]
@@ -53,6 +53,10 @@ public sealed class CameraFollower : MonoBehaviour
     [Space]
     [Header("Use Rotation or No in Game")]
     [SerializeField] private bool _useRotation = false;
+
+    [Space]
+    [Header("Use Auto Distance or No in Game")]
+    [SerializeField] private bool _autoDistance = false;
 
     private Vector3 _startPosition;
     private Quaternion _startRotation;
@@ -131,11 +135,13 @@ public sealed class CameraFollower : MonoBehaviour
         _followY = y;
         _followZ = z;
         _useRotation = useRotation;
-        transform.position = _cameraRelativePosition;
-        _follow = true;
         if (distance == -1)
+        {
+            Follow();
             return;
+        }
         _distanceToTarget = distance;
+        Follow();
     }
 
     public void SetRotation(float x, float y, float z)
@@ -154,6 +160,10 @@ public sealed class CameraFollower : MonoBehaviour
 
     public void Follow()
     {
+        if (_autoDistance == true)
+        {
+            DistanceToTarget = Vector3.Distance(transform.position, _targetTransform.position);
+        }
         transform.position = _cameraRelativePosition;
         _follow = true;
     }

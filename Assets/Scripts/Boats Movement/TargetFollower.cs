@@ -52,7 +52,7 @@ public class TargetFollower : MonoBehaviour
     public float FollowSpeed
     {
         get { return _followSpeed; }
-        set { _followSpeed = Mathf.Max(0.0f, value); }
+        set { _followSpeed = value; }
     }
 
     private Vector3 _relativePosition
@@ -76,7 +76,6 @@ public class TargetFollower : MonoBehaviour
 
     public void Follow(Transform target, bool x = true, bool y = true, bool z = true, float speed = 1, float distance = -1)
     {
-        Debug.Log("work follow");
         TargetTransform = target;
 
         _followX = x;
@@ -86,11 +85,13 @@ public class TargetFollower : MonoBehaviour
         FollowSpeed = speed;
 
         if (distance == -1)
+        {
             _distanceToTarget = Vector3.Distance(TargetTransform.position, transform.position);
+        }
         else
             _distanceToTarget = distance;
 
-        transform.position = _relativePosition;
+        //transform.position = _relativePosition;
         _follow = true;
     }
 
@@ -105,13 +106,13 @@ public class TargetFollower : MonoBehaviour
         FollowSpeed = _followSpeed;
     }
 
-    public void LateUpdate()
+    public void Update()
     {
         if (_follow == false)
             return;
-
-        transform.position = Vector3.Lerp(transform.position, _relativePosition, FollowSpeed * Time.deltaTime);
-
+        var direction = _relativePosition - transform.position;
         transform.LookAt(TargetTransform);
+        transform.Translate(direction * FollowSpeed * Time.deltaTime);
+       // transform.position = Vector3.Lerp(transform.position, _relativePosition, FollowSpeed * Time.deltaTime);        
     }
 }

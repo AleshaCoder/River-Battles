@@ -1,13 +1,14 @@
 using UnityEngine;
 
-public class RunnerMovement : MonoBehaviour
+public class RunnerMovement : MonoBehaviour, IService
 {
-    [SerializeField] private SwipeDetector _swipeDetector;
-
-    [SerializeField] private bool _canMoving;
     [SerializeField] private float _horizontalSpeed;
     [SerializeField] private float _forwardSpeed;
     [SerializeField] private float _minXValue, _maxXValue;
+
+    [SerializeField] private SwipeDetector _swipeDetector;
+
+    [SerializeField] private bool _canMoving;
 
     private Vector3 _direction = new Vector3(0, 0, 0);
     private Vector3 _startPosition;
@@ -19,12 +20,6 @@ public class RunnerMovement : MonoBehaviour
     public float ForwardSpeed => _forwardSpeed;
     public bool CanMoving => _canMoving;
 
-    private void Awake()
-    {
-        Init();
-        StartMoving();
-    }
-
     public void Init()
     {
         _moveForward = false;
@@ -32,6 +27,7 @@ public class RunnerMovement : MonoBehaviour
         _startPosition = transform.position;
         _startRotation = transform.rotation;
         _standartForwardSpeed = _forwardSpeed;
+        GameStarter.OnGameStarted += StartMoving;
     }
 
     public void MoveToStartPosition()
@@ -74,7 +70,7 @@ public class RunnerMovement : MonoBehaviour
         float newLocalXPosition = transform.localPosition.x;
 
         if (_moveForward == false)
-            newLocalXPosition = Mathf.Lerp(newLocalXPosition, _swipeDetector.XDragValue, Time.deltaTime * _horizontalSpeed);
+            newLocalXPosition = Mathf.Lerp(newLocalXPosition, _swipeDetector.XDragValue * _maxXValue, Time.deltaTime * _horizontalSpeed);
 
         if ((newLocalXPosition > 0 && transform.localPosition.x > _maxXValue) ||
            (newLocalXPosition < 0) && transform.localPosition.x < _minXValue)

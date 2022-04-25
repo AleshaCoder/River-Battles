@@ -21,15 +21,15 @@ public class BoatChecker : MonoBehaviour
         _isCheacking = false;
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
         if (_isCheacking == false)
             return;
 
-        if (collision.gameObject.TryGetComponent(out Boat boat))
+        if (other.gameObject.TryGetComponent(out Boat boat))
         {
-            StackedBoatsPool.Instance.StackBoat(boat);
             SwitchOff();
+            OnFindingBoat?.Invoke(boat);
         }
     }
 
@@ -37,6 +37,6 @@ public class BoatChecker : MonoBehaviour
     {
         _rigidbody = GetComponent<Rigidbody>();
         _collider = GetComponent<Collider>();
-        _collider.isTrigger = false;
+        _collider.isTrigger = true;
     }
 }
