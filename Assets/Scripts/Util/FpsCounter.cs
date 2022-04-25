@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Utils
+namespace Util
 {
     [RequireComponent(typeof(Text))]
     public class FpsCounter : MonoBehaviour
