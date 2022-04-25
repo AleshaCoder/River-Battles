@@ -21,7 +21,8 @@ public class BootstrapState : IState
     {
     }
 
-    private void EnterLoadLevel() =>
-      _stateMachine.Enter<LoadGameState, string>("18.04 Demo");
-
+    private void EnterLoadLevel()
+    {
+        _stateMachine.Enter<LoadGameState, string>("18.04 Demo");
+    }
 }
