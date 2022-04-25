@@ -9,6 +9,7 @@ public class EnemyBoat : MonoBehaviour
     [SerializeField] private BoatChecker _boatChecker;
     [SerializeField] private TargetFollower _targetFollower;
     [SerializeField] private List<Enemy> _enemies;
+    [SerializeField] private List<GameObject> _extraBoats;
     [SerializeField] private float _followSpeed = 1f;
 
     public Action OnDestroy;
@@ -49,10 +50,13 @@ public class EnemyBoat : MonoBehaviour
     {
         var warriors = StackedWarriorPool.Instance.GetWarriors();
 
-        foreach (var item in _enemies)
+        for (int i = 0; i < 3; i++)
         {
-            item.Gun.Shot(warriors[UnityEngine.Random.Range(0, warriors.Count)].transform);
-            await Task.Delay(200);
+            foreach (var item in _enemies)
+            {
+                item.Gun.Shot(warriors[UnityEngine.Random.Range(0, warriors.Count)].transform);
+                await Task.Delay(UnityEngine.Random.Range(50, 100));
+            }
         }
     }
 
@@ -75,6 +79,10 @@ public class EnemyBoat : MonoBehaviour
         {            
             _targetFollower.StopFollow();
             Destroy(gameObject,2);
+            foreach (var item in _extraBoats)
+            {
+                Destroy(item.gameObject);
+            }
             await Task.Delay(TimeSpan.FromSeconds(2));
             OnDestroy?.Invoke();
         }

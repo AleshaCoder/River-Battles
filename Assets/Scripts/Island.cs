@@ -36,10 +36,13 @@ public class Island : MonoBehaviour, IService
     {
         var warriors = StackedWarriorPool.Instance.GetWarriors();
 
-        foreach (var item in _enemies)
+        for (int i = 0; i < 3; i++)
         {
-            item.Gun.Shot(warriors[UnityEngine.Random.Range(0, warriors.Count)].transform);
-            await Task.Delay(200);
+            foreach (var item in _enemies)
+            {
+                item.Gun.Shot(warriors[UnityEngine.Random.Range(0, warriors.Count)].transform);
+                await Task.Delay(UnityEngine.Random.Range(50, 100));
+            }
         }
     }
 

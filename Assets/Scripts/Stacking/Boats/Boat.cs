@@ -73,12 +73,14 @@ public class Boat : MonoBehaviour, IStackable
     public async Task Fire(List<Enemy> enemies)
     {
         var warriors = StackedWarriorPool.Instance.GetWarriors();
-
-        foreach (var item in warriors)
+        for (int i = 0; i < 3; i++)
         {
-            item.Gun.Shot(enemies[Random.Range(0, enemies.Count)].transform);
-            await Task.Delay(200);
-        }
+            foreach (var item in warriors)
+            {
+                item.Gun.Shot(enemies[Random.Range(0, enemies.Count)].transform);
+                await Task.Delay(Random.Range(50,100));
+            }
+        }        
     }
 
     public async Task Kill(int count)

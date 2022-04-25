@@ -11,7 +11,19 @@ public class Services: MonoBehaviour
     [SerializeField] private LevelLoader _levelLoader;
 
     private static Services _instance;
-    public static Services Container => _instance;
+    public static Services Container
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                Debug.LogError("Services dont init :: Services");
+                Debug.Break();
+            }
+
+            return _instance;
+        }
+    }
 
     public void RegisterSingle<TService>(TService implementation) where TService : IService =>
       Implementation<TService>.ServiceInstance = implementation;
