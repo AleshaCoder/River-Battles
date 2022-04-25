@@ -1,7 +1,4 @@
-﻿using Newtonsoft.Json;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 
 public class GameLoopState : IState
@@ -30,7 +27,7 @@ public class GameLoopState : IState
         _gameStarter = Services.Container.Single<GameStarter>();
         _gameStarter.enabled = true;
         GameStarter.OnGameStarted += Services.Container.Single<RunnerMovement>().StartMoving;
-        GameStarter.OnGameStarted += () => Services.Container.Single<CameraFollower>().DistanceToTarget = 40; 
+        GameStarter.OnGameStarted += () => Services.Container.Single<CameraFollower>().DistanceToTarget = 40;
 
         GameObject.FindObjectOfType<SurfaceBoat>().Animate();
 
