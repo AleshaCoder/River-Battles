@@ -10,9 +10,12 @@ public class ShoreDocking : MonoBehaviour
     {
         var boats = StackedBoatsPool.Instance.GetBoats();
         var sequence = DOTween.Sequence();
-        sequence.Append(boats[0].transform.DOMoveX(dockingPoints[0].Position.x, 1));
-        sequence.Insert(0, boats[0].transform.DOMoveZ(dockingPoints[0].Position.z, 1));
-        sequence.Insert(0, boats[0].transform.DORotate(new Vector3(0, -90, 0), 1));
+
+        var boat = boats[0];
+
+        sequence.Append(boat.transform.DOMoveX(dockingPoints[0].Position.x, 1));
+        sequence.Insert(0, boat.transform.DOMoveZ(dockingPoints[0].Position.z, 1));
+        sequence.Insert(0, boat.transform.DORotate(new Vector3(0, -90, 0), 1));
 
         for (int i = 1; i < dockingPoints.Count; i++)
         {

@@ -14,14 +14,7 @@ public class GameStarter : MonoBehaviour, IPointerDownHandler, IService
 
     private void Awake()
     {
-        if (PlayerPrefs.HasKey("gamesCount"))
-        {
-            CountGames = PlayerPrefs.GetInt("gamesCount");
-        }
-        else
-        {
-            CountGames = 0;
-        }
+        CountGames = PlayerPrefs.GetInt("gamesCount", 0);
     }
 
     public void OnPointerDown(PointerEventData eventData)
