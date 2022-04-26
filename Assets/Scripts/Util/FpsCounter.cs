@@ -25,15 +25,16 @@ namespace Util
 
                 _text.text = $"{(int) (1f / value)} FPS";
                 await Task.Delay(TimeSpan.FromSeconds(updateDelay));
+                Application.targetFrameRate = 300;
             }
 
-            Application.targetFrameRate = 60;
         }
 
         private void Update()
         {
             _delay += Time.unscaledDeltaTime;
             _count++;
+        
         }
     }
 }

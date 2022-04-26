@@ -43,6 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c27406db65e21624cb35e831d122eabc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _inUse: 0
 --- !u!1 &7486918171640940361
 GameObject:
   m_ObjectHideFlags: 0
@@ -86,6 +87,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c27406db65e21624cb35e831d122eabc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _inUse: 0
 --- !u!1 &7486918172098969317
 GameObject:
   m_ObjectHideFlags: 0
@@ -226,6 +228,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7486918172098969321}
     m_Modifications:
+    - target: {fileID: 1048848570314629097, guid: 2f8d62a697a953f4d8d761ed9da1efcd,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1393688369807046078, guid: 2f8d62a697a953f4d8d761ed9da1efcd,
         type: 3}
       propertyPath: m_RootOrder
@@ -301,10 +308,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: arm@Firing Rifle (2) 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3510622996541032607, guid: 2f8d62a697a953f4d8d761ed9da1efcd,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5166093422067111566, guid: 2f8d62a697a953f4d8d761ed9da1efcd,
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8133355359396862289, guid: 2f8d62a697a953f4d8d761ed9da1efcd,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2f8d62a697a953f4d8d761ed9da1efcd, type: 3}

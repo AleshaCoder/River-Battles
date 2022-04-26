@@ -1,18 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
+using Obstacles;
 using UnityEngine;
 
-public class Obstacle : MonoBehaviour
+public class Obstacle : MonoBehaviour, IObstacleTryReciever
 {
-    // Start is called before the first frame update
-    void Start()
+    void OnTriggerEnter(Collider other)
     {
-        
+        if (other.TryGetComponent(out IThrowable throwable))
+        {
+            TryObstacleRecieve(throwable);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public async void TryObstacleRecieve(IThrowable throwable)
     {
-        
+        await throwable.Throw();
+        Destroy(this.gameObject);
     }
 }

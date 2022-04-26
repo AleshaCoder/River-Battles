@@ -1,11 +1,16 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
-public class WarriorGroup : MonoBehaviour
+public class WarriorGroup : MonoBehaviour, IThrowable
 {
     [SerializeField] private Vector3 _defaultAngle;
     [SerializeField] private List<Point> _warriorsPositions;
+    [SerializeField] private Point LeftPoint;
+    [SerializeField] private Point RightPoint;
+
 
     private List<Warrior> _warriors;
 
@@ -33,5 +38,30 @@ public class WarriorGroup : MonoBehaviour
         }
 
         return warriors.Count;
+    }
+
+    public async Task Throw()
+    {
+        bool isLeft = false;
+
+       
+           
+
+        foreach (var item in _warriors)
+        {
+            isLeft = Convert.ToBoolean(UnityEngine.Random.Range(0, 2));
+            item.transform.parent = null;
+           if(isLeft)
+           {
+              item.StackSelf(LeftPoint);
+           }else
+           {
+               item.StackSelf(RightPoint);
+           }
+           
+            await Task.Delay(50);
+            item.Kill();
+            item.transform.parent = null;
+        }
     }
 }
