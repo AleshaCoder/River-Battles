@@ -26,7 +26,8 @@ public class EnemyBoat : MonoBehaviour
 
     private void AttackBoats(Boat attacked)
     {
-        _targetFollower.Follow(attacked.transform, true, false, true, -_followSpeed, 1);
+        if (_targetFollower != null)
+            _targetFollower.Follow(attacked.transform, true, false, true, -_followSpeed, 1);
         attacked.Attack(this);
     }
 
@@ -76,9 +77,9 @@ public class EnemyBoat : MonoBehaviour
         }
 
         if (_enemies.Count == 0)
-        {            
+        {
             _targetFollower.StopFollow();
-            Destroy(gameObject,2);
+            Destroy(gameObject, 2);
             foreach (var item in _extraBoats)
             {
                 Destroy(item.gameObject);

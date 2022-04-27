@@ -36,9 +36,11 @@ public abstract class Unit : MonoBehaviour, IStackable
     public virtual IEnumerator AnimMoveToPoint(Point point, float height, float jumpTime, float rotationTime, bool needRotation = true, bool needParent = true)
     {
         var localPosDocking = _dockingPoint.transform.localPosition;
+
         var directionX = transform.position.x - _dockingPoint.Position.x;
         var directionZ = transform.position.z - _dockingPoint.Position.z;
         var directionY = transform.position.y - _dockingPoint.Position.y;
+
         var startTime = jumpTime;
         var startDockingPosition = _dockingPoint.Position;
         var deltaHeight = 0.0f;

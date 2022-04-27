@@ -48,7 +48,7 @@ public class IslandAttackState : IState
 
     public void Exit()
     {
-        _cameraFollower.DistanceToTarget *= 2;
+        _cameraFollower.TargetTransform = Services.Container.Single<RunnerMovement>().transform;
         ScreenManager.OnLose -= () => _stateMachine.Enter<ReloadLevel>();
         ScreenManager.OnWin -= () => _stateMachine.Enter<LoadLevelState>();
     }
@@ -56,8 +56,10 @@ public class IslandAttackState : IState
     public void Enter()
     {
         _cameraFollower = Services.Container.Single<CameraFollower>();
-
-        _cameraFollower.Follow(false, true, true, true, _cameraFollower.DistanceToTarget/2);
+        _cameraFollower.TargetTransform = Services.Container.Single<Island>().transform;
+        _cameraFollower.SetSpaces(10, 0, -20);
+        _cameraFollower.SetRotation(50, 0, 0);
+        _cameraFollower.DistanceToTarget = 50;
         Services.Container.Single<RunnerMovement>().Stop();
         ScreenManager.OnLose += () => _stateMachine.Enter<ReloadLevel>();
         ScreenManager.OnWin += () => _stateMachine.Enter<LoadLevelState>();

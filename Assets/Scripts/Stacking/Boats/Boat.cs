@@ -60,31 +60,45 @@ public class Boat : MonoBehaviour, IStackable
     {
         enemyBoat.Attack(StackedWarriorPool.Instance.GetWarriorsCount());
         var t = Fire(enemyBoat.GetEnemies());
-        var t1 = Kill(enemyBoat.GetEnemiesCount());
+        var t1 = Kill(enemyBoat.GetEnemies());
     }
 
     public void Attack(Island island)
     {
         island.Attack(StackedWarriorPool.Instance.GetWarriorsCount());
         var t = Fire(island.GetEnemies());
-        var t1 = Kill(island.GetEnemiesCount());
+        var t1 = Kill(island.GetEnemies());
     }
 
     public async Task Fire(List<Enemy> enemies)
     {
         var warriors = StackedWarriorPool.Instance.GetWarriors();
+
+        for (int i = 0; i < warriors.Count; i++)
+        {
+            var enemy = enemies[Random.Range(0, enemies.Count)].transform;
+            warriors[i].transform.LookAt(enemy);
+            var angle = warriors[i].transform.eulerAngles;
+            warriors[i].transform.eulerAngles = new Vector3(angle.x, angle.y - 90, angle.z);
+        }
+
         for (int i = 0; i < 3; i++)
         {
             foreach (var item in warriors)
             {
-                item.Gun.Shot(enemies[Random.Range(0, enemies.Count)].transform);
+                var enemy = enemies[Random.Range(0, enemies.Count)].transform;
+                item.Gun.Shot(enemy);
+                warriors[i].transform.LookAt(enemy);
+                var angle = warriors[i].transform.eulerAngles;
+                warriors[i].transform.eulerAngles = new Vector3(angle.x, angle.y - 90, angle.z);
                 await Task.Delay(Random.Range(50,100));
             }
-        }        
+        }
     }
 
-    public async Task Kill(int count)
+    public async Task Kill(List<Enemy> enemies)
     {
+        var count = enemies.Count;
         await Task.Delay(2000);
         for (int i = 0; i < StackedWarriorPool.Instance.GetWarriorsCount(); i++)
         {
@@ -93,6 +107,12 @@ public class Boat : MonoBehaviour, IStackable
             await Task.Delay(200);
             if (count == 0)
                 break;
+        }
+
+        var warriors = StackedWarriorPool.Instance.GetWarriors();
+        for (int i = 0; i < warriors.Count; i++)
+        {
+            warriors[i].transform.eulerAngles = new Vector3(0, -90, 0);
         }
     }
 
