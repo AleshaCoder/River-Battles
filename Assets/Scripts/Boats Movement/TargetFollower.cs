@@ -108,6 +108,7 @@ public class TargetFollower : MonoBehaviour
 
     public void Update()
     {
+            Application.targetFrameRate = 120;
         if (_follow == false)
             return;
         var direction = _relativePosition - transform.position;
