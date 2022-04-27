@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/18.04 Demo.unity
+    path: Assets/Scenes/18.04 Demo Alesha.unity
     guid: cbc31a65b280ab74d9f8662fbf78a1b1
   m_configObjects: {}
